@@ -11,9 +11,8 @@ def countRemoteHost(filter_content):
     host = {}
     x = PrettyTable()
     x.field_names = ["Remote Host", "Request", "%"]
-    
+        
     for data in filter_content:
-        #print (filter_content[data]["remote_host"])
         if (filter_content[data]["remote_host"] in host):
             host[filter_content[data]["remote_host"]] = host.get(filter_content[data]["remote_host"]) + 1
         else:
@@ -21,8 +20,11 @@ def countRemoteHost(filter_content):
     
     for a in host:
         x.add_row([a, host.get(a), "{0:.2f}%".format(host.get(a) * 100 / len(filter_content))])
-        #print (a, "{0:6d}".format(host.get(a)), "\t", "{0:.2f}%".format(host.get(a) * 100 / len(filter_content)))
+
+    x.sortby = "Request"
+    x.reversesort = True
     print (x)
+
 
 def main():
     usage = "usage: %prog [options] arg"
@@ -94,8 +96,6 @@ def main():
             filter_content[index] = filter_row
             index += 1
             
-    #print (filter_content)
-    
     print ("# Summary ")
     print ("SquidReport")
     print ("Lines Content Log " + str(len(content_log)))
