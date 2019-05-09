@@ -23,6 +23,27 @@ def countRemoteHost(filter_content):
 
     x.sortby = "Request"
     x.reversesort = True
+    print ("\nHosts")
+    print (x)
+
+
+def countFileType(filter_content):
+    filetype = {}
+    x = PrettyTable()
+    x.field_names = ["File Type", "Request", "%"]
+        
+    for data in filter_content:
+        if (filter_content[data]["file_type"] in filetype):
+            filetype[filter_content[data]["file_type"]] = filetype.get(filter_content[data]["file_type"]) + 1
+        else:
+            filetype[filter_content[data]["file_type"]] = 0
+    
+    for a in filetype:
+        x.add_row([a, filetype.get(a), "{0:.2f}%".format(filetype.get(a) * 100 / len(filter_content))])
+
+    x.sortby = "Request"
+    x.reversesort = True
+    print ("\nFile type")
     print (x)
 
 
@@ -102,6 +123,7 @@ def main():
     print ("Domain Search " + domain)
     print ("Match line " + str(len(filter_content)))
     countRemoteHost(filter_content)
+    countFileType(filter_content)
 
 
 if __name__ == "__main__":
