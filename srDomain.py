@@ -124,6 +124,13 @@ def main():
     print ("Match line " + str(len(filter_content)))
     countRemoteHost(filter_content)
     countFileType(filter_content)
+    
+    print ("\nSquidReport v0.1")
+    print ("Copyright (C) 2019")
+    print ("Author: Daniel Maldonado.")
+    print ("SquidReport comes with ABSOLUTELY NO WARRANTY. It is free software, and you are")
+    print ("welcome to redistribute it under certain conditions. See source for details.")
+    print ("http://danielmaldonado.com.ar/")
 
 
 if __name__ == "__main__":
