@@ -22,6 +22,7 @@ def countRemoteHost(filter_content):
         x.add_row([a, host.get(a), "{0:.2f}%".format(host.get(a) * 100 / len(filter_content))])
 
     x.sortby = "Request"
+    x.align["Remote Host"] = 'l'
     x.reversesort = True
     print ("\nHosts")
     print (x)
@@ -42,6 +43,7 @@ def countFileType(filter_content):
         x.add_row([a, filetype.get(a), "{0:.2f}%".format(filetype.get(a) * 100 / len(filter_content))])
 
     x.sortby = "Request"
+    x.align["File Type"] = 'l'
     x.reversesort = True
     print ("\nFile type")
     print (x)
@@ -125,7 +127,7 @@ def main():
     countRemoteHost(filter_content)
     countFileType(filter_content)
     
-    print ("\nSquidReport v0.1")
+    print ("\n\nSquidReport v0.1")
     print ("Copyright (C) 2019")
     print ("Author: Daniel Maldonado.")
     print ("SquidReport comes with ABSOLUTELY NO WARRANTY. It is free software, and you are")
