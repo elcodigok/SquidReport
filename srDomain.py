@@ -16,7 +16,7 @@ def countRemoteHost(filter_content):
         if (filter_content[data]["remote_host"] in host):
             host[filter_content[data]["remote_host"]] = host.get(filter_content[data]["remote_host"]) + 1
         else:
-            host[filter_content[data]["remote_host"]] = 0
+            host[filter_content[data]["remote_host"]] = 1
     
     for a in host:
         x.add_row([a, host.get(a), "{0:.2f}%".format(host.get(a) * 100 / len(filter_content))])
@@ -36,7 +36,7 @@ def countFileType(filter_content):
         if (filter_content[data]["file_type"] in filetype):
             filetype[filter_content[data]["file_type"]] = filetype.get(filter_content[data]["file_type"]) + 1
         else:
-            filetype[filter_content[data]["file_type"]] = 0
+            filetype[filter_content[data]["file_type"]] = 1
     
     for a in filetype:
         x.add_row([a, filetype.get(a), "{0:.2f}%".format(filetype.get(a) * 100 / len(filter_content))])
