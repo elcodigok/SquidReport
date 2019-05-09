@@ -7,6 +7,27 @@ import time
 from optparse import OptionParser
 from prettytable import PrettyTable
 
+def countStatus(filter_content):
+    status = {}
+    x = PrettyTable()
+    x.field_names = ["Code Status", "Request", "%"]
+        
+    for data in filter_content:
+        if (filter_content[data]["status"] in status):
+            status[filter_content[data]["status"]] = status.get(filter_content[data]["status"]) + 1
+        else:
+            status[filter_content[data]["status"]] = 1
+    
+    for a in status:
+        x.add_row([a, status.get(a), "{0:.2f}%".format(status.get(a) * 100 / len(filter_content))])
+
+    x.sortby = "Request"
+    x.align["Code Status"] = 'l'
+    x.reversesort = True
+    print ("\nStatus")
+    print (x)
+
+
 def countRemoteHost(filter_content):
     host = {}
     x = PrettyTable()
@@ -125,6 +146,7 @@ def main():
     print ("Domain Search " + domain)
     print ("Match line " + str(len(filter_content)))
     countRemoteHost(filter_content)
+    countStatus(filter_content)
     countFileType(filter_content)
     
     print ("\n\nSquidReport v0.1")
