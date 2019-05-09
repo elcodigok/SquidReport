@@ -5,9 +5,13 @@ import sys
 import datetime
 import time
 from optparse import OptionParser
+from prettytable import PrettyTable
 
 def countRemoteHost(filter_content):
     host = {}
+    x = PrettyTable()
+    x.field_names = ["Remote Host", "Request", "%"]
+    
     for data in filter_content:
         #print (filter_content[data]["remote_host"])
         if (filter_content[data]["remote_host"] in host):
@@ -16,7 +20,9 @@ def countRemoteHost(filter_content):
             host[filter_content[data]["remote_host"]] = 0
     
     for a in host:
-        print (a, "{0:6d}".format(host.get(a)), "\t", "{0:.2f}%".format(host.get(a) * 100 / len(filter_content)))
+        x.add_row([a, host.get(a), "{0:.2f}%".format(host.get(a) * 100 / len(filter_content))])
+        #print (a, "{0:6d}".format(host.get(a)), "\t", "{0:.2f}%".format(host.get(a) * 100 / len(filter_content)))
+    print (x)
 
 def main():
     usage = "usage: %prog [options] arg"
