@@ -7,7 +7,7 @@ import time
 from optparse import OptionParser
 from prettytable import PrettyTable
 
-__version__ = "0.1"
+VERSION = "0.1"
 
 def countStatus(filter_content):
     status = {}
@@ -79,7 +79,7 @@ def countFileType(filter_content):
 
 def main():
     usage = "usage: %prog [options] arg"
-    version = 'SquidReport::Domain' + ' v' + __version__
+    version = 'SquidReport::Domain' + ' v' + VERSION
     parser = OptionParser(usage, version=version)
     parser.add_option("-f", "--file", dest="filename",
                   help="File Squid Log", metavar="FILE")
@@ -156,7 +156,7 @@ def main():
     countStatus(filter_content)
     countFileType(filter_content)
     
-    print ("\n\nSquidReport v" + __version__)
+    print ("\n\nSquidReport v" + VERSION)
     print ("Copyright (C) 2019")
     print ("Author: Daniel Maldonado.")
     print ("SquidReport comes with ABSOLUTELY NO WARRANTY. It is free software, and you are")

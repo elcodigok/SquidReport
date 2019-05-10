@@ -19,7 +19,7 @@ Usage
 Examples
 --------
 
-### Search domain in de log file
+### Search domain in the log file
 
 ```bash
 $ python3 srDomain.py -f /var/log/squid3/access.log --search "danielmaldonado.com.ar"
