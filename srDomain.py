@@ -7,6 +7,8 @@ import time
 from optparse import OptionParser
 from prettytable import PrettyTable
 
+__version__ = "0.1"
+
 def countStatus(filter_content):
     status = {}
     x = PrettyTable()
@@ -30,17 +32,22 @@ def countStatus(filter_content):
 
 def countRemoteHost(filter_content):
     host = {}
+    bandwidth = {}
     x = PrettyTable()
-    x.field_names = ["Remote Host", "Request", "%"]
+    x.field_names = ["Remote Host", "Request", "%", "Bandwidth"]
         
     for data in filter_content:
+        #print (filter_content[data]["bytes"])
         if (filter_content[data]["remote_host"] in host):
             host[filter_content[data]["remote_host"]] = host.get(filter_content[data]["remote_host"]) + 1
+            bandwidth[filter_content[data]["remote_host"]] += int(filter_content[data]["bytes"])
+            
         else:
             host[filter_content[data]["remote_host"]] = 1
+            bandwidth[filter_content[data]["remote_host"]] = int(filter_content[data]["bytes"])
     
     for a in host:
-        x.add_row([a, host.get(a), "{0:.2f}%".format(host.get(a) * 100 / len(filter_content))])
+        x.add_row([a, host.get(a), "{0:.2f}%".format(host.get(a) * 100 / len(filter_content)), "{0:.2f} M".format((bandwidth.get(a) / 1024) / 1024)])
 
     x.sortby = "Request"
     x.align["Remote Host"] = 'l'
@@ -75,7 +82,7 @@ def main():
     version = 'SquidReport::Domain' + ' version' + ' 0.1'
     parser = OptionParser(usage, version=version)
     parser.add_option("-f", "--file", dest="filename",
-                  help="write report to FILE", metavar="FILE")
+                  help="File Squid Log", metavar="FILE")
     parser.add_option("-s", "--search", dest="domainsearch")
     parser.add_option("-q", "--quiet",
                   action="store_false", dest="verbose", default=True,
@@ -139,17 +146,17 @@ def main():
             
             filter_content[index] = filter_row
             index += 1
-            
-    print ("# Summary ")
+    
+    print ("\n# Summary ")
     print ("SquidReport")
-    print ("Lines Content Log " + str(len(content_log)))
+    print ("\nLines Content Log " + str(len(content_log)))
     print ("Domain Search " + domain)
     print ("Match line " + str(len(filter_content)))
     countRemoteHost(filter_content)
     countStatus(filter_content)
     countFileType(filter_content)
     
-    print ("\n\nSquidReport v0.1")
+    print ("\n\nSquidReport v" + __version__)
     print ("Copyright (C) 2019")
     print ("Author: Daniel Maldonado.")
     print ("SquidReport comes with ABSOLUTELY NO WARRANTY. It is free software, and you are")
