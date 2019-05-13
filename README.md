@@ -22,7 +22,7 @@ Examples
 ### Search domain in the log file
 
 ```bash
-$ python3 srDomain.py -f /var/log/squid3/access.log --search "danielmaldonado.com.ar"
+$ python3 squidReport.py -f /var/log/squid3/access.log --search "danielmaldonado.com.ar"
 ```
 
 Project Home
