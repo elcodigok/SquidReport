@@ -79,7 +79,7 @@ def countFileType(filter_content):
 
 def main():
     usage = "usage: %prog [options] arg"
-    version = 'SquidReport::Domain' + ' v' + VERSION
+    version = 'squidReport' + ' v' + VERSION
     parser = OptionParser(usage, version=version)
     parser.add_option("-f", "--file", dest="filename",
                   help="File Squid Log", metavar="FILE")

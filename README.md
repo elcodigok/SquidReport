@@ -9,11 +9,19 @@ SquidReport is a report generator that uses the Log file of the Proxy SQUID serv
 
 -----
 
+Installation
+------------
+
+Installing WPHardening requires you to execute one console command:
+
+```bash
+$ pip3 install -r requirements.txt
+```
 
 Usage
 -----
 
-    $ python3 srDomain.py -h 
+    $ python3 squidReport.py -h 
 
 
 Examples
