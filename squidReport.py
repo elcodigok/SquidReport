@@ -1,13 +1,24 @@
 #!/usr/bin/env python3
 
+import datetime
 import io
 import sys
-import datetime
 import time
 from optparse import OptionParser
 from prettytable import PrettyTable
 
-VERSION = "0.1"
+VERSION = "0.1.1"
+
+
+def bannerFooter():
+    print ("\n\nSquidReport v" + VERSION)
+    print ("Copyright (C) 2019")
+    print ("Author: Daniel Maldonado.")
+    print ("SquidReport comes with ABSOLUTELY NO WARRANTY.",
+           " It is free software, and you are")
+    print ("welcome to redistribute it under certain conditions.",
+           " See source for details.")
+    print ("http://danielmaldonado.com.ar/")
 
 
 def countStatus(filter_content):
@@ -32,7 +43,7 @@ def countStatus(filter_content):
     x.sortby = "Request"
     x.align["Code Status"] = 'l'
     x.reversesort = True
-    print ("\nStatus")
+    print ("\nRequest Status:")
     print (x)
 
 
@@ -65,7 +76,7 @@ def countRemoteHost(filter_content):
     x.sortby = "Request"
     x.align["Remote Host"] = 'l'
     x.reversesort = True
-    print ("\nHosts")
+    print ("\nRemote Hosts:")
     print (x)
 
 
@@ -91,7 +102,7 @@ def countFileType(filter_content):
     x.sortby = "Request"
     x.align["File Type"] = 'l'
     x.reversesort = True
-    print ("\nFile type")
+    print ("\nFile type:")
     print (x)
 
 
@@ -134,11 +145,6 @@ def main():
         if (column[6].find(domain) != -1):
             filter_row = {}
 
-            # column 0 -> date
-            # print (time.strftime(
-            # "%d/%m/%Y %H:%M",
-            # time.localtime(float(column[0])))
-            # )
             filter_row['date_query'] = time.strftime(
                 "%d/%m/%Y %H:%M",
                 time.localtime(float(column[0]))
@@ -173,21 +179,14 @@ def main():
 
     print ("\n# Summary ")
     print ("SquidReport")
-    print ("\nLines Content Log " + str(len(content_log)))
-    print ("Domain Search " + domain)
-    print ("Match line " + str(len(filter_content)))
+    print ("\nLines Content Log:", '{:d}'.format(len(content_log)))
+    print ("Domain Search:", domain)
+    print ("Match line:", '{:d}'.format(len(filter_content)))
     countRemoteHost(filter_content)
     countStatus(filter_content)
     countFileType(filter_content)
 
-    print ("\n\nSquidReport v" + VERSION)
-    print ("Copyright (C) 2019")
-    print ("Author: Daniel Maldonado.")
-    print ("SquidReport comes with ABSOLUTELY NO WARRANTY.",
-           " It is free software, and you are")
-    print ("welcome to redistribute it under certain conditions.",
-           " See source for details.")
-    print ("http://danielmaldonado.com.ar/")
+    bannerFooter()
 
 
 if __name__ == "__main__":
